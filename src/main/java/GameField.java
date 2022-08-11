@@ -14,8 +14,8 @@ public class GameField extends JPanel implements ActionListener {
     private Image dot;
     private Image apple;
 
-    private final int[] x = new int[ALL_DOTS];
-    private final int[] y = new int[ALL_DOTS];
+    private  int[] x = new int[ALL_DOTS];
+    private  int[] y = new int[ALL_DOTS];
 
     private int appleX;
     private int appleY;
@@ -29,10 +29,13 @@ public class GameField extends JPanel implements ActionListener {
 
     private boolean inGame = true;
 
+    private Timer timer;
+
+
     public void loadImage(){
-        ImageIcon iia = new ImageIcon("apple.png");
+        ImageIcon iia = new ImageIcon("C:\\Users\\User\\IdeaProjects\\MyProject\\src\\main\\java\\apple.png");
         apple = iia.getImage();
-        ImageIcon iid = new ImageIcon("dot.png");
+        ImageIcon iid = new ImageIcon("C:\\Users\\User\\IdeaProjects\\MyProject\\src\\main\\java\\dot.png");
         dot = iid.getImage();
     }
 
@@ -47,7 +50,7 @@ public class GameField extends JPanel implements ActionListener {
             y[i] = 48;
             x[i] = 48 - DOT_SIZE;
         }
-        Timer timer = new Timer(150, this);
+        timer = new Timer(150, this);
         timer.start();
         createApple();
     }
@@ -55,6 +58,10 @@ public class GameField extends JPanel implements ActionListener {
     public void checkApple(){
         if(x[0]==appleX&&y[0]==appleY){
             dots++;
+            if(dots>5) {
+                timer = new Timer(100, this);
+                timer.start();
+            }
             createApple();
         }
     }
@@ -76,7 +83,8 @@ public class GameField extends JPanel implements ActionListener {
     public void checkCollision(){
         for (int i = dots; i > 0; i--) {
             if (x[0] == x[i] && y[0] == y[i]) {
-                inGame = false;
+                inGame = true;
+
             }
         }
         if(x[0]>SIZE)
