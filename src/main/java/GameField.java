@@ -23,9 +23,10 @@ public class GameField extends JPanel implements ActionListener {
     private int dots;
 
     private boolean left = false;
-    private boolean right = true;
+    private boolean right = false;
     private boolean up = false;
-    private boolean down = false;
+    private boolean down = true;
+
     private boolean inGame = true;
 
     public void loadImage(){
@@ -37,10 +38,8 @@ public class GameField extends JPanel implements ActionListener {
 
     public void createApple(){
         Random random = new Random();
-
-            appleX = random.nextInt(20)*DOT_SIZE;
-            appleY = random.nextInt(20)*DOT_SIZE;
-
+        appleX = random.nextInt(20)*DOT_SIZE;
+        appleY = random.nextInt(20)*DOT_SIZE;
     }
     public void initGame(){
         dots = 3;
@@ -70,7 +69,7 @@ public class GameField extends JPanel implements ActionListener {
         }else {
             String str = "Game Over";
             g.setColor(Color.CYAN);
-            g.drawString(str,SIZE/6,SIZE/2);
+            g.drawString(str,SIZE/3,SIZE/2);
         }
     }
 
@@ -78,7 +77,6 @@ public class GameField extends JPanel implements ActionListener {
         for (int i = dots; i > 0; i--) {
             if (x[0] == x[i] && y[0] == y[i]) {
                 inGame = false;
-                break;
             }
         }
         if(x[0]>SIZE)
@@ -86,12 +84,12 @@ public class GameField extends JPanel implements ActionListener {
         if(x[0]<0)
             x[0] = SIZE;
         if(y[0]>SIZE)
-            y[0] = 0;
+            inGame = false;
         if(y[0]<0)
-            y[0] = SIZE;
+            inGame = false;
     }
     @Override
-    public void actionPerformed(ActionEvent a){
+    public void actionPerformed(ActionEvent e){
         if(inGame){
             checkApple();
             checkCollision();
@@ -105,7 +103,6 @@ public class GameField extends JPanel implements ActionListener {
         loadImage();
         initGame();
         addKeyListener(new FieldKeyListener());
-        add(new GameField());
         setFocusable(true);
     }
     public void move(){
