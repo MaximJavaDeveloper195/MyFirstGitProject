@@ -8,7 +8,7 @@ public class MainWindow extends JFrame {
         setSize(340,365); // размер окна
         setLocation(400,400); //расположение ближе к центру
         add(new GameField());
-        setVisible(true); // видимость экрана
+        setVisible(true); // видимость экрана при запуске 
     }
     public static void main(String[] args) {
         MainWindow mainWindow = new MainWindow();
